@@ -1,76 +1,40 @@
-const express = require("express");
-const cors = require("cors");
+const express = require("express"); // levanta servicio de express
+const cors = require("cors"); //instanciacion del cors
 
-// const { dbConnection } = require('../database/MongoConnection');
+//establecer conexion de bd haciendo un llamado a la libreria con la que nos queremos conectar  'POSTGRESS'
 
 const { bdmysql, sequelize } = require("../database/MySqlConnection");
 
 class Server {
+  //en el contructor vamos a hacer la conexion a express, pero como un atributo de la clase
   constructor() {
-    this.app = express();
-    this.port = process.env.PORT;
+    this.app = express(); //constructor hace la conexion
+    this.port = process.env.PORT; // process. env , va a la variable de entorno y asigna el puerto de port definido en env, esto se hace para que los puertos sean configurables más facilmente
 
-    //Rutas MONGO
-    this.usuariosPath = "/api/usuarios";
-    this.heroesPath = "/api/heroes";
-
-    this.pathsMongo = {
-      auth: "/api/auth",
-      buscar: "/api/buscar",
-      //categorias: '/api/categorias',
-      //productos:  '/api/productos',
-      usuarios: "/api/usuarios",
-      user: "/api/user",
-      //referencias:'/api/referencias',
-      //grupomultimedias:'/api/grupomultimedias',
-      //multimedias:'/api/multimedias',
-      //proveedores:'/api/proveedores',
-      //marcas:'/api/marcas',
-      roles: "/api/roles",
-      //opciones:'/api/opciones',
-      //opcionesrole:'/api/opcionesrole',
-      //proveedormarcas:'/api/proveedormarcas',
-      heroes: "/api/heroes",
-      //uploads:'/api/uploads',
-    };
-
-    //Rutas MySQL
-    this.heroesMySQLPath = "/api/heroesm";
-
+    //rutas , el primero auth para autenticacion en un futuro con el token, el segundo con prueba inicialmente con get, son json
     this.pathsMySql = {
-      auth: "/api/authm",
-      buscar: "/api/buscarm",
+      auth: "/api/auth",
       prueba: "/api/prueba",
-      casting: "/api/casting",
-      //categorias: '/api/categorias',
-      //productos:  '/api/productos',
-      usuarios: "/api/usuariosm",
-      //referencias:'/api/referencias',
-      //grupomultimedias:'/api/grupomultimedias',
-      //multimedias:'/api/multimedias',
-      //proveedores:'/api/proveedores',
-      //marcas:'/api/marcas',
-      roles: "/api/rolesm",
-      //opciones:'/api/opciones',
-      //opcionesrole:'/api/opcionesrole',
-      //proveedormarcas:'/api/proveedormarcas',
-      heroes: "/api/heroesm",
-      //uploads:'/api/uploads',
+      heroes: "/api/heroes",
+      usuario: "/api/usuario",
     };
 
-    //Conectar BD
-    this.conectarBD();
-    // this.dbConnection();
-
+    //RUTAS, ya no es de esta manera sino en router
+    /*
+        this.app.get('/', function (req, res) {  //a traves de la app tenemos una ruta para responder con el hello world dependiendo de la peticion que voy a hacer
+        res.send('hola mundo')
+        })
+*/
+    this.conectarBD(); //AQUI ME CONECTO A LA BASE DE DATOS
+    //this.dbConnection();
     //Middlewares
     this.middlewares();
-
-    //Rutas de la Aplicacion
+    //Routes
     this.routes();
   }
 
   async conectarBD() {
-    await this.dbConnection();
+    await this.dbConnection(); // Este async se deja quieto
   }
 
   async dbConnection() {
@@ -80,6 +44,15 @@ class Server {
     } catch (error) {
       console.error("Unable to connect to the database:", error);
     }
+  }
+
+  routes() {
+    //haciendo referencia al archivo donde estan las rutas , o la hago directamente, lo de get.api ....
+    //o le digo a la app que use esa ruta donde tengo el pathmysql, es un archivo de autorizacion que hace referencia alas rutas
+    this.app.use(this.pathsMySql.auth, require("../routes/MySqlAuth"));
+    this.app.use(this.pathsMySql.prueba, require("../routes/prueba"));
+    this.app.use(this.pathsMySql.heroes, require("../routes/MySqlHeroe"));
+    this.app.use(this.pathsMySql.usuario, require("../routes/MySqlUsuarios"));
   }
 
   middlewares() {
