@@ -34,12 +34,12 @@ class HeroesService {
         resolve({
           success: true,
           data: result,
-          message: "heroe created successfully",
+          message: "Heroe created successfully",
         });
       } catch (error) {
         reject({
           success: false,
-          message: "heroe err",
+          message: "Heroe err",
         });
       }
     });

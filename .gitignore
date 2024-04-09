@@ -1,5 +1,4 @@
-.env
-.dates.txt
+
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/node
@@ -146,3 +145,11 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/node
+
+
+
+
+#Add Aditional
+.dates.txt
+
+

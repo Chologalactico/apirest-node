@@ -31,16 +31,17 @@ class MoviesService {
         resolve({
           success: true,
           data: result,
-          message: "movies created successfully",
+          message: "Movies created successfully",
         });
       } catch (error) {
         reject({
           success: false,
-          message: "movies err",
+          message: "Movies err",
         });
       }
     });
   }
 }
+
 
 module.exports = MoviesService;
