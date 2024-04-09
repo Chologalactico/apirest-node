@@ -11,7 +11,7 @@ API is a Node.js-based.
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/API-Foodhy.git
+   git clone https://github.com/Chologalactico/apirest-node.git
    cd API-Foodhy
    ```
 
