@@ -1,8 +1,8 @@
-# API-Foodhy
+# API-Rest
 
 
 ## Overview
-API-Foodhy is a Node.js-based RESTful API documented using Swagger.
+API is a Node.js-based.
 
 ## Table of Contents
 - [Installation](#installation)
