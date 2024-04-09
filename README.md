@@ -1,4 +1,5 @@
-#Api-Rest
+# API-Foodhy
+
 
 ## Overview
 API-Foodhy is a Node.js-based RESTful API documented using Swagger.
@@ -28,3 +29,18 @@ API-Foodhy is a Node.js-based RESTful API documented using Swagger.
     PORT_DB=
     PORT=
    ```
+
+## Usage
+Run the following command to start the development server using nodemon:
+   ```bash
+    npm run dev
+  ```
+
+For production:
+   ```bash
+    npm start
+  ```
+
+
+
+
