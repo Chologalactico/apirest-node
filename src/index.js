@@ -20,6 +20,7 @@ app.use("/api/heroes", require("./routes/heroes.router"));
 app.use("/api/image", require("./routes/image.router"));
 app.use("/api/CP", require("./routes/casting_pelicula.router"));
 app.use("/api/user", require("./routes/users.router"));
+app.use("/api/login",require("./routes/auth.router"))
 
 app.listen(3000, () => {
   console.log(`Server on port ${app.get("port")}`);
